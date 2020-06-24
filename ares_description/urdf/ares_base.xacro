@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot name="ares_base" xmlns:xacro="http://www.ros.org/wiki/xacro">
+	<macro name="ares_base">
+		<link name="base_link">
+			<inertial>
+				<origin xyz="0.00000813 0 0.02322078" />
+				<mass value="0.55722619" />
+				<inertia ixx="0.00067251" ixy="0" ixz="0" iyy="0.0016127" iyz="0" izz="0.00182111" />
+			</inertial>
+			<visual>
+				<origin xyz="0 0 0" rpy="0 0 0" />
+				<geometry>
+					<mesh filename="package://ares_description/meshes/base_link.STL" />
+				</geometry>
+				<material name="">
+					<color rgba="0.10196 0.10196 0.10196 1" />
+				</material>
+			</visual>
+			<collision>
+				<origin xyz="0 0 0" rpy="0 0 0" />
+				<geometry>
+					<mesh filename="package://ares_description/meshes/base_link.STL" />
+				</geometry>
+			</collision>
+		</link>
+		<link name="wheel_lf_link">
+			<inertial>
+				<origin xyz="0 0.00856913 0" rpy="0 0 0" />
+				<mass value="0.07503549" />
+				<inertia ixx="0.00004285" ixy="0" ixz="0" iyy="0.00007349" iyz="0" izz="0.00004285" />
+			</inertial>
+			<visual>
+				<origin xyz="0 0 0" rpy="0 0 0" />
+				<geometry>
+					<mesh filename="package://ares_description/meshes/wheel_lf_link.STL" />
+				</geometry>
+				<material name="">
+					<color rgba="0.79216 0.81961 0.93333 1" />
+				</material>
+			</visual>
+			<collision>
+				<origin xyz="0 0.0085707 0" rpy="0 0 0" />
+				<geometry>
+					<mesh filename="package://ares_description/meshes/wheel_lf_link.STL" />
+				</geometry>
+			</collision>
+		</link>
+		<joint name="wheel_lf_joint" type="continuous">
+			<origin xyz="0.0614863916393112 0.0574 0.01625" rpy="0 0 0" />
+			<parent link="base_link" />
+			<child link="wheel_lf_link" />
+			<axis xyz="0 -1 0" />
+		</joint>
+		<link name="wheel_lb_link">
+			<inertial>
+				<origin xyz="0 0.00856913 0" rpy="0 0 0" />
+				<mass value="0.07503549" />
+				<inertia ixx="0.00004285" ixy="0" ixz="0" iyy="0.00007349" iyz="0" izz="0.00004285" />
+			</inertial>
+			<visual>
+				<origin xyz="0 0 0" rpy="0 0 0" />
+				<geometry>
+					<mesh filename="package://ares_description/meshes/wheel_lb_link.STL" />
+				</geometry>
+				<material name="">
+					<color rgba="0.79216 0.81961 0.93333 1" />
+				</material>
+			</visual>
+			<collision>
+				<origin xyz="0 0 0" rpy="0 0 0" />
+				<geometry>
+					<mesh filename="package://ares_description/meshes/wheel_lb_link.STL" />
+				</geometry>
+			</collision>
+		</link>
+		<joint name="wheel_lb_joint" type="continuous">
+			<origin xyz="-0.0614863916393112 0.0574 0.01625" rpy="0 0 0" />
+			<parent link="base_link" />
+			<child link="wheel_lb_link" />
+			<axis xyz="0 -1 0" />
+		</joint>
+		<link name="wheel_rf_link">
+			<inertial>
+				<origin xyz="0 0.00856913 0" rpy="0 0 0" />
+				<mass value="0.07503549" />
+				<inertia ixx="0.00004285" ixy="0" ixz="0" iyy="0.00007349" iyz="0" izz="0.00004285" />
+			</inertial>
+			<visual>
+				<origin xyz="0 0 0" rpy="0 0 0" />
+				<geometry>
+					<mesh filename="package://ares_description/meshes/wheel_rf_link.STL" />
+				</geometry>
+				<material name="">
+					<color rgba="0.79216 0.81961 0.93333 1" />
+				</material>
+			</visual>
+			<collision>
+				<origin xyz="0 0 0" rpy="0 0 0" />
+				<geometry>
+					<mesh filename="package://ares_description/meshes/wheel_rf_link.STL" />
+				</geometry>
+			</collision>
+		</link>
+		<joint name="wheel_rf_joint" type="continuous">
+			<origin xyz="0.0614863916393112 -0.0574 0.01625" rpy="3.14159265358979 0 0" />
+			<parent link="base_link" />
+			<child link="wheel_rf_link" />
+			<axis xyz="0 -1 0" />
+		</joint>
+		<link name="wheel_rb_link">
+			<inertial>
+				<origin xyz="0 0.00856913 0" rpy="0 0 0" />
+				<mass value="0.07503549" />
+				<inertia ixx="0.00004285" ixy="0" ixz="0" iyy="0.00007349" iyz="0" izz="0.00004285" />
+			</inertial>
+			<visual>
+				<origin xyz="0 0 0" rpy="0 0 0" />
+				<geometry>
+					<mesh filename="package://ares_description/meshes/wheel_rb_link.STL" />
+				</geometry>
+				<material name="">
+					<color rgba="0.79216 0.81961 0.93333 1" />
+				</material>
+			</visual>
+			<collision>
+				<origin xyz="0 0 0" rpy="0 0 0" />
+				<geometry>
+					<mesh filename="package://ares_description/meshes/wheel_rb_link.STL" />
+				</geometry>
+			</collision>
+		</link>
+		<joint name="wheel_rb_joint" type="continuous">
+			<origin xyz="-0.0614863916393112 -0.0574 0.01625" rpy="3.14159265358979 0 0" />
+			<parent link="base_link" />
+			<child link="wheel_rb_link" />
+			<axis xyz="0 -1 0" />
+		</joint>
+		<link name="controller_link">
+			<inertial>
+				<origin xyz="0 0 0" rpy="0 0 0" />
+				<mass value="0" />
+				<inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0" />
+			</inertial>
+			<visual>
+				<origin xyz="0 0 0" rpy="0 0 0" />
+				<geometry>
+					<mesh filename="package://ares_description/meshes/controller_link.STL" />
+				</geometry>
+				<material name="">
+					<color rgba="1 1 1 1" />
+				</material>
+			</visual>
+			<collision>
+				<origin xyz="0 0 0" rpy="0 0 0" />
+				<geometry>
+					<mesh filename="package://ares_description/meshes/controller_link.STL" />
+				</geometry>
+			</collision>
+		</link>
+		<joint name="controller_joint" type="fixed">
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<parent link="base_link" />
+			<child link="controller_link" />
+			<axis xyz="0 0 0" />
+		</joint>
+		<gazebo>
+			<plugin name="mecanum_controller" filename="libgazebo_ros_planar_move.so">				
+				<commandTopic>cmd_vel</commandTopic>
+				<odometryTopic>odom</odometryTopic>
+				<odometryFrame>odom</odometryFrame>
+				<leftFrontJoint>wheel_lf_joint</leftFrontJoint>
+				<rightFrontJoint>wheel_rf_joint</rightFrontJoint>
+				<leftRearJoint>wheel_lb_joint</leftRearJoint>
+				<rightRearJoint>wheel_rb_joint</rightRearJoint>
+				<odometryRate>20.0</odometryRate>
+				<robotBaseFrame>$(arg bodyframe)/base_link</robotBaseFrame>
+				<!--robotBaseFrame>base_link</robotBaseFrame-->
+			</plugin>
+			<plugin name="p3d_base_controller" filename="libgazebo_ros_p3d.so">
+    				<alwaysOn>true</alwaysOn>
+    				<updateRate>50.0</updateRate>
+    				<bodyName>base_link</bodyName>
+   				<topicName>base_pose_ground_truth</topicName>
+    				<gaussianNoise>0.01</gaussianNoise>
+    				<frameName>world</frameName>
+    				<xyzOffsets>0 0 0</xyzOffsets>
+   				<rpyOffsets>0 0 0</rpyOffsets>
+ 			</plugin>
+
+		</gazebo>
+	</macro>
+</robot>

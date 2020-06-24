@@ -1,0 +1,13 @@
+  <launch>
+    
+    
+
+    <node pkg="stage_first" type="tf_broadcaster"
+          args="/robot_0" name="robot_0_tf_broadcaster" />
+    <node pkg="stage_first" type="tf_broadcaster"
+          args="/robot_1" name="robot_1_tf_broadcaster" />
+   
+    
+    <node pkg="stage_first" type="slave_tf_listener"
+          name="slave" />
+  </launch>

@@ -1,0 +1,18 @@
+  <launch>
+    
+    
+
+    <node pkg="stage_first" type="tf_broadcaster"
+          args="/ares2" name="ares2_tf_broadcaster" />
+    <node pkg="stage_first" type="tf_broadcaster"
+          args="/ares1" name="ares1_tf_broadcaster" />
+    <node pkg="stage_first" type="tf_broadcaster"
+          args="/ares3" name="ares3_tf_broadcaster" />
+   
+    <node pkg="stage_first" type="master"
+          name="master" />
+    <node pkg="stage_first" type="slave_tf_listener2"
+          name="slave2" />
+    <node pkg="stage_first" type="slave_tf_listener3"
+          name="slave3" />
+  </launch>

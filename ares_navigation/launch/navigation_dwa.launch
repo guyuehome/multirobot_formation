@@ -1,0 +1,28 @@
+<launch>
+
+    <!-- 设置地图的配置文件 -->
+    <arg name="map" default="cloister_gmapping.yaml" />
+
+    <!-- 运行地图服务器，并且加载设置的地图-->
+    <node name="map_server" pkg="map_server" type="map_server" args="$(find ares_navigation)/maps/$(arg map)"/>
+
+    <!-- 运行move_base节点 -->
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen" clear_params="true">
+    <!--开启dwa局部导航节点-->
+    <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
+    <!--加载设置参数-->
+    <rosparam file="$(find ares_navigation)/config/ares/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find ares_navigation)/config/ares/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find ares_navigation)/config/ares/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find ares_navigation)/config/ares/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find ares_navigation)/config/ares/move_base_params.yaml" command="load" />
+    <rosparam file="$(find ares_navigation)/config/ares/dwa_local_planner_params.yaml" command="load" />
+    </node>
+
+    <!-- 启动AMCL节点 -->
+    <include file="$(find amcl)/examples/amcl_omni.launch" />
+
+    <!-- 运行rviz -->
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find ares_navigation)/rviz/nav.rviz"/>
+
+</launch>

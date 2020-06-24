@@ -1,0 +1,87 @@
+<launch>
+
+    <arg name="odom_frame_id"   default="ares1_tf/odom"/>
+    <arg name="base_frame_id"   default="ares1_tf/base_link"/>
+    <arg name="global_frame_id" default="map"/>
+    <arg name="odom_topic" default="/ares1/odom" />
+    <arg name="laser_topic" default="/ares1/laser/scan" />
+    <arg name="move_forward_only" default="false"/>
+
+  
+	<node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen" clear_params="true">
+    <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
+
+    <rosparam file="$(find ares_navigation)/config/ares/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find ares_navigation)/config/ares/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find ares_navigation)/config/ares/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find ares_navigation)/config/ares/global_costmap_params.yaml" command="load" />
+
+    <rosparam file="$(find ares_navigation)/config/ares/move_base_params.yaml" command="load" />
+    <rosparam file="$(find ares_navigation)/config/ares/dwa_local_planner_params.yaml" command="load" />
+	<param name="DWAPlannerROS/min_vel_x" value="0.0" if="$(arg move_forward_only)" />    
+
+
+    <!-- reset frame_id parameters using user input data -->
+    <param name="global_costmap/global_frame" value="$(arg global_frame_id)"/>
+    <param name="global_costmap/robot_base_frame" value="$(arg base_frame_id)"/>
+    <param name="local_costmap/global_frame" value="$(arg odom_frame_id)"/>
+    <param name="local_costmap/robot_base_frame" value="$(arg base_frame_id)"/>
+    <param name="DWAPlannerROS/global_frame_id" value="$(arg odom_frame_id)"/>
+
+    <remap from="cmd_vel" to="/ares1/cmd_vel"/>
+    <remap from="odom" to="$(arg odom_topic)"/>
+    <remap from="scan" to="$(arg laser_topic)"/>
+    <remap from="map" to="/map" />
+    <remap from="/move_base_simple/goal"                                           to="/ares1/move_base_simple/goal" />
+    <remap from="/move_base/TebLocalPlannerROS/global_plan"                        to="/ares1/move_base/TebLocalPlannerROS/global_plan" />
+    <remap from="/move_base/TebLocalPlannerROS/local_plan"                         to="/ares1/move_base/TebLocalPlannerROS/local_plan" />
+    <remap from="/move_base/TebLocalPlannerROS/teb_markers"                        to="/ares1/move_base/TebLocalPlannerROS/teb_markers" />
+    <remap from="/move_base/TebLocalPlannerROS/teb_markers_array"                  to="/ares1/move_base/TebLocalPlannerROS/teb_markers_array" />
+    <remap from="/move_base/TebLocalPlannerROS/teb_poses"                          to="/ares1/move_base/TebLocalPlannerROS/teb_poses" />
+    <remap from="/move_base/global_costmap/costmap"                                to="/ares1/move_base/global_costmap/costmap" />
+    <remap from="/move_base/global_costmap/costmap_updates"                        to="/ares1/move_base/global_costmap/costmap_updates" />
+    <remap from="/move_base/local_costmap/costmap"                                 to="/ares1/move_base/local_costmap/costmap" />
+    <remap from="/move_base/local_costmap/costmap_updates"                         to="/ares1/move_base/local_costmap/costmap_updates" />
+    <remap from="/move_base/local_costmap/footprint"                               to="/ares1/move_base/local_costmap/footprint" />
+
+    <remap from="/move_base/GlobalPlanner/parameter_descriptions"                  to="/ares1/move_base/GlobalPlanner/parameter_descriptions" />
+    <remap from="/move_base/GlobalPlanner/parameter_updates"                       to="/ares1/move_base/GlobalPlanner/parameter_updates" />
+    <remap from="/move_base/GlobalPlanner/plan"                                    to="/ares1/move_base/GlobalPlanner/plan" />
+    <remap from="/move_base/GlobalPlanner/potential"                               to="/ares1/move_base/GlobalPlanner/potential" />
+    <remap from="/move_base/TebLocalPlannerROS/obstacles"                          to="/ares1/move_base/TebLocalPlannerROS/obstacles" />
+    <remap from="/move_base/TebLocalPlannerROS/parameter_descriptions"             to="/ares1/move_base/TebLocalPlannerROS/parameter_descriptions" />
+    <remap from="/move_base/TebLocalPlannerROS/parameter_updates"                  to="/ares1/move_base/TebLocalPlannerROS/parameter_updates" />
+    <remap from="/move_base/cancel"                                                to="/ares1/move_base/cancel" />
+    <remap from="/move_base/current_goal"                                          to="/ares1/move_base/current_goal" />
+    <remap from="/move_base/feedback"                                              to="/ares1/move_base/feedback" />
+    <remap from="/move_base/global_costmap/footprint"                              to="/ares1/move_base/global_costmap/footprint" />
+    <remap from="/move_base/global_costmap/inflation_layer/parameter_descriptions" to="/ares1/move_base/global_costmap/inflation_layer/parameter_descriptions" />
+    <remap from="/move_base/global_costmap/inflation_layer/parameter_updates"      to="/ares1/move_base/global_costmap/inflation_layer/parameter_updates" />
+    <remap from="/move_base/global_costmap/obstacle_layer/clearing_endpoints"      to="/ares1/move_base/global_costmap/obstacle_layer/clearing_endpoints" />
+    <remap from="/move_base/global_costmap/obstacle_layer/parameter_descriptions"  to="/ares1/move_base/global_costmap/obstacle_layer/parameter_descriptions" />
+    <remap from="/move_base/global_costmap/obstacle_layer/parameter_updates"       to="/ares1/move_base/global_costmap/obstacle_layer/parameter_updates" />
+    <remap from="/move_base/global_costmap/parameter_descriptions"                 to="/ares1/move_base/global_costmap/parameter_descriptions" />
+    <remap from="/move_base/global_costmap/parameter_updates"                      to="/ares1/move_base/global_costmap/parameter_updates" />
+    <remap from="/move_base/global_costmap/static_layer/parameter_descriptions"    to="/ares1/move_base/global_costmap/static_layer/parameter_descriptions" />
+    <remap from="/move_base/global_costmap/static_layer/parameter_updates"         to="/ares1/move_base/global_costmap/static_layer/parameter_updates" />
+    <remap from="/move_base/goal"                                                  to="/ares1/move_base/goal" />
+    <remap from="/move_base/local_costmap/obstacle_layer/parameter_descriptions"   to="/ares1/move_base/local_costmap/obstacle_layer/parameter_descriptions" />
+    <remap from="/move_base/local_costmap/obstacle_layer/parameter_updates"        to="/ares1/move_base/local_costmap/obstacle_layer/parameter_updates" />
+    <remap from="/move_base/local_costmap/parameter_descriptions"                  to="/ares1/move_base/local_costmap/parameter_descriptions" />
+    <remap from="/move_base/local_costmap/parameter_updates"                       to="/ares1/move_base/local_costmap/parameter_updates" />
+    <remap from="/move_base/local_costmap/static_layer/parameter_descriptions"     to="/ares1/move_base/local_costmap/static_layer/parameter_descriptions" />
+    <remap from="/move_base/local_costmap/static_layer/parameter_updates"          to="/ares1/move_base/local_costmap/static_layer/parameter_updates" />
+    <remap from="/move_base/parameter_descriptions"                                to="/ares1/move_base/parameter_descriptions" />
+    <remap from="/move_base/parameter_updates"                                     to="/ares1/move_base/parameter_updates" />
+    <remap from="/move_base/result"                                                to="/ares1/move_base/result" />
+    <remap from="/move_base/status"                                                to="/ares1/move_base/status" />
+    <remap from="/move_base_simple/goal"                                           to="/ares1/move_base_simple/goal" />
+
+
+
+
+
+
+</node>
+  
+</launch>

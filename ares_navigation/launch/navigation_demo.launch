@@ -1,0 +1,25 @@
+<launch>
+<!-- 设置地图的配置文件 -->
+<arg name="map" default="cloister_gmapping.yaml" />
+
+    <!-- 运行地图服务器，并且加载设置的地图-->
+    <node name="map_server" pkg="map_server" type="map_server" args="$(find ares_navigation)/maps/$(arg map)"/>
+	<param name="frame_id" value="ares1/map" />
+	<remap from="/cmd_vel" to="ares1/cmd_vel"/>
+	<remap from="/scan" to="ares1/scan"/>
+	<remap from="ares1/odom" to="odom"/>
+
+<!--node pkg="tf" type="static_transform_publisher" name="map_odom_broadcaster1" args="0 0 0 0 0 0 0 map odom 100" /-->
+<!--node pkg="tf" type="static_transform_publisher" name="odom_base_broadcaster1" args="0 0 0 0 0 0 0 odom ares1/base_link 100" /-->
+
+	
+    <!-- 运行move_base节点 -->
+    <include file="$(find ares_navigation)/launch/move_base.launch"/>
+
+    <!-- 启动AMCL节点 -->
+    <include file="$(find ares_navigation)/launch/amcl.launch" />
+
+    <!-- 运行rviz -->
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find ares_navigation)/rviz/nav.rviz"/>
+
+</launch>

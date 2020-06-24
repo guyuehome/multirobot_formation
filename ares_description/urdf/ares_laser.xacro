@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<robot name="ares_laser_gazebo" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <!-- Included URDF Files -->
+    <include filename="$(find ares_description)/urdf/ares_base.xacro" />
+	<ares_base />
+	<include filename="$(find ares_description)/urdf/sensors/laser.xacro" />
+	<laser />
+	<xacro:include filename="$(find ares_description)/urdf/sensors/camera.xacro" />
+    <!--xacro:include filename="$(find ares_description)/urdf/sensors/kinect.xacro" /-->
+	<sensors />
+
+	<xacro:property name="camera_offset_x" value="0" />
+    <xacro:property name="camera_offset_y" value="0" />
+    <xacro:property name="camera_offset_z" value="0.2" />
+	
+    <!-- Camera -->
+    <joint name="camera_joint" type="fixed">
+        <origin xyz="${camera_offset_x} ${camera_offset_y} ${camera_offset_z}" rpy="0 0 0" />
+        <parent link="base_link"/>
+        <child link="camera_link"/>
+    </joint>
+	
+    <xacro:usb_camera prefix="camera"/>
+
+
+<!--
+	<xacro:property name="kinect_offset_x" value="0" />
+    <xacro:property name="kinect_offset_y" value="0" />
+    <xacro:property name="kinect_offset_z" value="0.12" />
+-->
+    <!-- kinect -->
+<!--
+    <joint name="kinect_joint" type="fixed">
+        <origin xyz="${kinect_offset_x} ${kinect_offset_y} ${kinect_offset_z}" rpy="0 0 0" />
+        <parent link="base_link"/>
+        <child link="kinect_link"/>
+    </joint>
+
+    <xacro:kinect_camera prefix="kinect"/>
+-->
+
+</robot>
