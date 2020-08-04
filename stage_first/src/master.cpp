@@ -59,9 +59,9 @@ void move(double speed, double distance, bool isForward){
    geometry_msgs::Twist vel_msg;
    //set a random linear velocity in the x-axis and check condition for the direction
    if (isForward)
-	   vel_msg.linear.x =abs(speed);
+	   vel_msg.linear.x =fabs(speed);
    else
-	   vel_msg.linear.x =-abs(speed);
+	   vel_msg.linear.x =-fabs(speed);
 
    vel_msg.linear.y =0;
    vel_msg.linear.z =0;
